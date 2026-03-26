@@ -1,0 +1,33 @@
+{
+  "migIndex": 2,
+  "data": [
+    {
+      "path": "assets/fonts/IBMPlexSansThai-Bold.ttf",
+      "sha1": "b2e00019362a7656e22ffc2d63b1a44a1680ccac"
+    },
+    {
+      "path": "assets/fonts/IBMPlexSansThai-ExtraLight.ttf",
+      "sha1": "4b76dc6d9ed5f3f4aa6815d5a0d9c6ee707e296a"
+    },
+    {
+      "path": "assets/fonts/IBMPlexSansThai-Light.ttf",
+      "sha1": "0d0b8df65ceac32440a810f6cfa3a40a0bb4e650"
+    },
+    {
+      "path": "assets/fonts/IBMPlexSansThai-Medium.ttf",
+      "sha1": "40cd6b249accdaabd0d72def8018f82ee7b3ce2e"
+    },
+    {
+      "path": "assets/fonts/IBMPlexSansThai-Regular.ttf",
+      "sha1": "0cc35089bfd5dc9ff57b0a89d35aa09521488fa5"
+    },
+    {
+      "path": "assets/fonts/IBMPlexSansThai-SemiBold.ttf",
+      "sha1": "a90151310fffbf0fecc94e8b29d3f6d52d9ec55e"
+    },
+    {
+      "path": "assets/fonts/IBMPlexSansThai-Thin.ttf",
+      "sha1": "14db212d41fb94854d462a6054d3b38210ccc167"
+    }
+  ]
+}
