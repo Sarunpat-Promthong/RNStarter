@@ -5,6 +5,7 @@ import {
   StyleProp,
   StyleSheet,
   TextStyle,
+  View,
   ViewStyle,
 } from 'react-native';
 
@@ -23,25 +24,29 @@ type ButtonTextWeight =
   | '700';
 
 type AppButtonProps = Omit<PressableProps, 'style'> & {
-  title: string; // เช่น "บันทึก"
+  title: string;
 
-  variant?: ButtonVariant; // เช่น "primary", "outline"
-  size?: ButtonSize; // เช่น "sm", "md", "lg"
-  fullWidth?: boolean; // เช่น true
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  fullWidth?: boolean;
 
-  backgroundColor?: string; // เช่น "#3A7C22"
-  textColor?: string; // เช่น "#FFFFFF"
-  borderColor?: string; // เช่น "#3A7C22"
+  backgroundColor?: string;
+  textColor?: string;
+  borderColor?: string;
 
-  height?: number; // เช่น 56
-  fontSize?: number; // เช่น 18
-  lineHeight?: number; // เช่น 24
-  fontWeight?: ButtonTextWeight; // เช่น "500", "600", "bold"
+  height?: number;
+  fontSize?: number;
 
-  pressedOpacity?: number; // เช่น 0.8
+  borderRadius?: number;
 
-  style?: StyleProp<ViewStyle>; // style เพิ่มของปุ่ม
-  textStyle?: StyleProp<TextStyle>; // style เพิ่มของข้อความ
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+
+  lineHeight?: number;
+  fontWeight?: ButtonTextWeight;
+  pressedOpacity?: number;
+
+  showInfo?: boolean; // ✅ debug
 };
 
 type VariantStyles = {
@@ -70,11 +75,14 @@ export default function AppButton({
   fontSize,
   lineHeight,
   fontWeight,
+  borderRadius,
 
   pressedOpacity = 0.9,
 
   style,
   textStyle,
+
+  showInfo,
   ...rest
 }: AppButtonProps) {
   const isDisabled = disabled ?? false;
@@ -89,12 +97,15 @@ export default function AppButton({
 
   const sizeStyles = getSizeStyles(size);
 
+  const finalFontSize = fontSize ?? sizeStyles.fontSize;
+
   return (
     <Pressable
       {...rest}
       disabled={isDisabled}
       style={({ pressed }) => [
         styles.base,
+        { borderRadius: borderRadius ?? theme.radius.md },
         variantStyles.container,
         sizeStyles.container,
         height ? { minHeight: height } : null,
@@ -104,16 +115,28 @@ export default function AppButton({
         style,
       ]}
     >
-      <AppText
-        variant="button"
-        color={variantStyles.textColor}
-        fontSize={fontSize ?? sizeStyles.fontSize}
-        lineHeight={lineHeight ?? sizeStyles.lineHeight}
-        fontWeight={fontWeight}
-        style={textStyle}
-      >
-        {title}
-      </AppText>
+      <View style={styles.content}>
+        <AppText
+          variant="button"
+          color={variantStyles.textColor}
+          fontSize={finalFontSize}
+          lineHeight={lineHeight ?? sizeStyles.lineHeight}
+          fontWeight={fontWeight}
+          style={textStyle}
+        >
+          {title}
+        </AppText>
+
+        {__DEV__ && showInfo && (
+          <AppText
+            style={styles.debug}
+            fontSize={10}
+            color={theme.colors.textPrimary}
+          >
+            {variant} | {size} | {finalFontSize}px
+          </AppText>
+        )}
+      </View>
     </Pressable>
   );
 }
@@ -230,7 +253,6 @@ function getSizeStyles(size: ButtonSize): SizeStyles {
 
 const styles = StyleSheet.create({
   base: {
-    borderRadius: theme.radius.pill,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -240,5 +262,11 @@ const styles = StyleSheet.create({
   },
   disabled: {
     opacity: 0.7,
+  },
+  content: {
+    alignItems: 'center',
+  },
+  debug: {
+    marginTop: 2,
   },
 });

@@ -34,48 +34,49 @@ export const theme = {
 
     size: {
       ...tokens.fontSize,
-      // xs: 10,  // 10px
-      // sm: 12,  // 12px
-      // md: 14,  // 14px
-      // lg: 16,  // 16px
-      // xl: 20,  // 20px
-      // xxl: 24, // 24px
     },
 
     presets: {
       h1: {
         fontFamily: tokens.fontFamily.semibold,
-        fontSize: tokens.fontSize.xxl, // 24px
+        fontSize: tokens.fontSize.xxl, // 24
+        lineHeight: 36, // ✅ 1.5x
       },
 
       h2: {
         fontFamily: tokens.fontFamily.semibold,
-        fontSize: tokens.fontSize.xl, // 20px
+        fontSize: tokens.fontSize.xl, // 20
+        lineHeight: 30,
       },
 
       title: {
         fontFamily: tokens.fontFamily.medium,
-        fontSize: tokens.fontSize.lg, // 16px
+        fontSize: tokens.fontSize.lg, // 16
+        lineHeight: 24,
       },
 
       body: {
         fontFamily: tokens.fontFamily.regular,
-        fontSize: tokens.fontSize.md, // 14px
+        fontSize: tokens.fontSize.md, // 14
+        lineHeight: 22, // ✅ สำคัญมาก
       },
 
       bodyMedium: {
         fontFamily: tokens.fontFamily.medium,
-        fontSize: tokens.fontSize.md, // 14px
+        fontSize: tokens.fontSize.md,
+        lineHeight: 22,
       },
 
       caption: {
         fontFamily: tokens.fontFamily.light,
-        fontSize: tokens.fontSize.sm, // 12px
+        fontSize: tokens.fontSize.sm, // 12
+        lineHeight: 18,
       },
 
       button: {
         fontFamily: tokens.fontFamily.medium,
-        fontSize: tokens.fontSize.lg, // 16px
+        fontSize: tokens.fontSize.lg, // 16
+        lineHeight: 22,
       },
     },
   },

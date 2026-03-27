@@ -6,15 +6,17 @@ type Variant = keyof typeof theme.typography.presets;
 type AppTextWeight = '300' | '400' | '500' | '600' | '700' | 'normal' | 'bold';
 
 type Props = TextProps & {
-  variant?: Variant; // เช่น "body", "h1", "caption"
-  color?: string; // เช่น theme.colors.primary หรือ "#1A1A1A"
+  variant?: Variant;
+  color?: string;
 
-  fontSize?: number; // เช่น 16
-  lineHeight?: number; // เช่น 24
-  fontWeight?: AppTextWeight; // เช่น "500", "600", "bold"
-  fontFamily?: string; // เช่น "IBM Plex Sans Thai Medium"
+  fontSize?: number;
+  lineHeight?: number;
+  fontWeight?: AppTextWeight;
+  fontFamily?: string;
 
-  style?: StyleProp<TextStyle>; // style เพิ่มเติม
+  style?: StyleProp<TextStyle>;
+
+  showSize?: boolean;
 };
 
 export default function AppText({
@@ -25,24 +27,36 @@ export default function AppText({
   fontWeight,
   fontFamily,
   style,
+  showSize,
   children,
   ...rest
 }: Props) {
+  const preset = theme.typography.presets[variant];
+
+  const finalFontSize = fontSize ?? preset.fontSize;
+  const finalLineHeight =
+    lineHeight ??
+    (preset as TextStyle).lineHeight ??
+    Math.round(finalFontSize * 1.5); // ✅ แนะนำ 1.5 สำหรับภาษาไทย
+
   const resolvedFontFamily = fontFamily ?? getFontFamilyByWeight(fontWeight);
 
   return (
     <Text
       {...rest}
       style={[
-        theme.typography.presets[variant],
+        preset,
         { color: color ?? theme.colors.textPrimary },
         resolvedFontFamily ? { fontFamily: resolvedFontFamily } : null,
-        fontSize ? { fontSize } : null,
-        lineHeight ? { lineHeight } : null,
+        { fontSize: finalFontSize },
+        { lineHeight: finalLineHeight }, // ✅ ใช้ค่าที่คำนวณแล้ว
         style,
       ]}
     >
       {children}
+      {__DEV__ && showSize
+        ? ` (${finalFontSize}px / ${finalLineHeight}px)`
+        : null}
     </Text>
   );
 }
